@@ -12,19 +12,37 @@ const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const MongoDBStore = require("connect-mongo")(session);
 const User = require('./models/user');
 
-const app = express();
 const userRoutes = require('./routes/users');
 const albumRoutes = require('./routes/albums');
 const reviewRoutes = require('./routes/reviews');
 const collectionRoutes = require('./routes/collections');
 
 
-// _____________________________________________ //
+const MongoDBStore = require("connect-mongo")(session);
+const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/bandcamp_clone_2';
 
-// ***** SET UP EXPRESS PREFERENCES ***** //
+
+mongoose.connect(dbUrl)
+    .then(() => {
+        console.log("MONGO CONNECTION OPEN")
+    })
+    .catch(err => {
+        console.log("MONGO CONNECTION ERROR")
+        console.log(err)
+    })
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", () => {
+    console.log("Database connected");
+});
+
+
+const app = express();
+
+
 
 // sets up EJS, lets us use ejsMate for boilerplate.js,
 // and makes path name easier for views
@@ -32,32 +50,19 @@ app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 
-
 // allows us to parse the request body
 app.use(express.urlencoded({ extended: true }));
-
 
 // allows us to use PUT and DELETE requests
 app.use(methodOverride('_method'));
 
-    // sets up simplified routers using express.router
-
-    // NOTE: router has some quirks you should know, especially with req.params;
-    // you have to use mergeParams
-
-
 // allows us to serve static assets from public directory (e.g. scripts, styles, etc.)
 app.use(express.static(path.join(__dirname, 'public')))
-
-
-// sets up preferences for user sessions, MongoAtlas, and flash messages/errors
-// NOTE: The development mongodb URL is for your Windows homelab
-const dbURL = process.env.DB_URL || 'mongodb://127.0.0.1:27017/bandcamp_clone_2'
 
 const secret = process.env.SECRET || 'thisshouldbebettersecret';
 
 const store = new MongoDBStore({
-    url: dbURL,
+    url: dbUrl,
     secret,
     touchAfter: 20 * 60 * 60
 });
@@ -123,24 +128,6 @@ app.use((err, req, res, next) => {
 })
 
 
-// _____________________________________________ //
-
-// ***** CONNECT TO DATABASE ***** //
-mongoose.connect(dbURL)
-    .then(() => {
-        console.log("MONGO CONNECTION OPEN")
-    })
-    .catch(err => {
-        console.log("MONGO CONNECTION ERROR")
-        console.log(err)
-    })
-// 
-
-
-
-// _____________________________________________ //
-
-// ***** START SERVER ***** //
 const port = process.env.PORT || 3000;
 
 app.listen(port, ()=> {
