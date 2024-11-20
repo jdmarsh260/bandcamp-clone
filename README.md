@@ -1,3 +1,7 @@
+**Heroku**: https://guarded-atoll-93229-12245eb5da2b.herokuapp.com/
+
+___
+
 **Overview**
 
 This is a very ugly barebones "clone" of Bandcamp.
@@ -15,10 +19,9 @@ I have also had limited success with adding **multer** (for uploading audio trac
 
 ___
 
-**Heroku**: https://guarded-atoll-93229-12245eb5da2b.herokuapp.com/
-
-
 1. **First Steps**
+
+    Open app in **Heroku** (see URL above)
 
     Register as **user** and/or login, then navigate to **Albums**.
 
