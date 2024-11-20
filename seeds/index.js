@@ -1,10 +1,17 @@
+if (process.env.NODE_ENV !== "production") {
+	require('dotenv').config();
+  }
+
 const mongoose = require('mongoose');
 const {albums, artist_first_word, artist_second_word, album_art} = require('./seedHelpers.js');
 const Album = require('../models/album');
 
-// mongodb path for local seeding: mongodb://127.0.0.1:27017/bandcamp_clone_2
 
-mongoose.connect(process.env.DB_URL)
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+
+
+
+mongoose.connect(dbUrl)
     .then(() => {
         console.log("MONGO CONNECTION OPEN")
     })
