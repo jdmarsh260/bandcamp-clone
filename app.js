@@ -21,7 +21,7 @@ const collectionRoutes = require('./routes/collections');
 
 
 const MongoDBStore = require("connect-mongo")(session);
-const dbUrl = process.env.DB_URL;
+const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/bandcamp_clone_2';
 
 
 mongoose.connect(dbUrl)
