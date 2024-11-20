@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const {albums, artist_first_word, artist_second_word, album_art} = require('./seedHelpers.js');
 const Album = require('../models/album');
 
-mongoose.connect('mongodb://127.0.0.1:27017/bandcamp_clone_2')
+// mongodb path for local seeding: mongodb://127.0.0.1:27017/bandcamp_clone_2
+
+mongoose.connect(process.env.DB_URL)
     .then(() => {
         console.log("MONGO CONNECTION OPEN")
     })
