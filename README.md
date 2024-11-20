@@ -19,7 +19,7 @@ I have also had limited success with adding **multer** (for uploading audio trac
 
 ___
 
-**First Steps**
+1. **First Steps**
 
     Open app in **Heroku** (see URL above)
 
@@ -28,7 +28,7 @@ ___
     Several dummy albums have already been **seeded** into the database.
 
 
-**How to Use**
+2. **How to Use**
 
     You can **view albums** without being logged in, but you have to register and/or login as a user in order to **create albums**.
 
