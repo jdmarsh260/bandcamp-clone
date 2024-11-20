@@ -1,0 +1,60 @@
+<% layout('./secondary/layouts/boilerplate')%>
+
+<div class="row">
+    <div class="col-6">
+        <div class="card mb-3">
+
+            <img src="<%= collection.collection_image%>" class="card-img-top" alt="...">
+
+            <div class="card-body text-center">
+                <h5 class="card-title"><%= collection.title%></h5>
+                <p class="card-text"><%= collection.description%></p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-6">
+
+        <p class="text-center">Add albums you want in this collection and hit publish.</p>
+            
+        <form action="/collections/<%= collection._id %>/add_albums" method="POST" novalidate class="mb-3 validated-form">
+
+            <div class="mb-3">
+                <label class="form-label" for="album_id">Album ID</label>
+                <input class="form-control" type="text" id="album_id" name="album_id">
+            </div>
+
+        <div class="mb-3 text-right">
+            <button class="btn-md btn-secondary mr-1">Add Album</button>
+            <button class="btn-md btn-success ml-1" type="submit" formaction="/collections/submit">Publish</button>
+        </div>
+
+        </form>
+
+
+        <% for(let album of collection.albums) { %>
+
+        <div class="card mb-3">
+
+            <img src="<%= album.album_art%>" class="card-img-top" alt="...">
+
+            <div class="card-body text-center mb-3">
+                <h5 class="card-title"><%= album.title %></h5>
+                <p class="card-text">by <%= album.artist_name %></p>
+                <form action="/collections/<%= collection._id%>/add_albums/<%= album._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </div>
+
+        </div>
+
+        <% } %>
+
+    </div>
+
+</div>
+        
+
+
+

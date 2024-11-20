@@ -1,0 +1,45 @@
+<% layout('./secondary/layouts/boilerplate')%>
+
+<div class="row">
+
+    <h1 class="text-center">New Collection</h1>
+
+    <div class="col-6 offset-3">
+
+        <div class="pt-2 pb-1 mb-1 text-center">
+            <p>Enter the basic details of your collection and hit submit.</p>
+        </div>
+
+        <div class="card px-3 py-3 mb-3">
+
+            <form action="/collections" method="POST" novalidate class="validated-form">
+
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title</label>
+                    <input class="form-control" type="text" id="title" name="collection[title]" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="album_art">Image (URL)</label>
+                    <input class="form-control" type="text" id="image" name="collection[collection_image]" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="collection[description]" required></textarea>
+                </div>
+
+
+                <div class="mb-1 text-center">
+                    <button class="btn btn-success">Submit</button>
+                </div>
+                
+            </form>
+
+        </div>
+
+        <a href="/collections">Go back to all collections</a>
+
+    </div>
+</div>
+

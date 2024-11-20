@@ -1,0 +1,31 @@
+<% layout('./secondary/layouts/boilerplate')%>
+
+<h1>Edit Review</h1>
+
+<form action="/albums/<%=album._id%>/reviews/<%=review._id%>?_method=PUT" method="POST" novalidate class="validated-form">
+
+	<div class="mb-3">
+		<label class="form-label" for="title">Title</label>
+		<input class="form-control" type="text" id="title" name="review[title]" value="<%=review.title %>" required>
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label" for="rating">Rating</label>
+		<input class="form-range" type="range" min="1" max="5" name="review[rating]" id="rating" required>
+	</div>
+
+	<div class="mb-3">
+		<label class="form-label" for="body">Content</label>
+		<textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required><%=review.body%></textarea>
+	</div>
+
+	<button class="btn btn-success">Submit</button>
+
+</form>
+
+<footer>
+    <a href="/albums">Back to Album</a>
+</footer>
+
+
+

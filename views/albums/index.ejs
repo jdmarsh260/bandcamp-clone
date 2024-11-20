@@ -1,0 +1,30 @@
+<% layout('./secondary/layouts/boilerplate')%>
+
+<h1>All Albums</h1>
+
+<div>
+	<a href="/albums/new">Add Album</a>
+</div>
+
+<% for (let album of albums) { %>
+
+	<div class="card mb-3">
+		<div class="row">
+
+			<div class="col-md-4">
+				<img class="img-fluid" src="<%= album.album_art %>">
+			</div>
+
+			<div class="col-md-8">
+				<div class="card-body">
+					<h5 class="card-title"><%= album.title %></h5>
+					<h6 class="card-title">by <%= album.artist_name %></h6>
+					<p class="card-text"><%= album.description %></p>
+					<a class="btn btn-primary" href="/albums/<%=album._id%>">View Album</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+<% } %>

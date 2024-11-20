@@ -1,0 +1,91 @@
+<% layout('./secondary/layouts/boilerplate')%>
+<link rel="stylesheet" href="/stars.css">
+
+<div class="row">
+
+    <div class="col-6">
+
+        <div class="card mb-3">
+
+            <img src="<%= album.album_art%>" class="card-img-top" alt="...">
+
+            <div class="card-body">
+                <h5 class="card-title"><%= album.title %></h5>
+                <h6>by <%= album.artist_name %></h6>
+                <p class="card-text"><%= album.description%></p>
+            </div>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">$<%= album.price%></li>
+            </ul>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Submitted by</b>: <i><%= album.author.username%></i></li>
+            </ul>
+
+            <%  if( currentUser && album.author.equals(currentUser._id))  {%>
+                <div class="card-body">
+                    <a class="card-link btn btn-info" href="/albums/<%=album._id%>/edit">Edit</a>
+                    <form class="d-inline" action="/albums/<%=album._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            <% } %>
+
+        </div>
+    </div>
+
+    <div class="col-6">
+
+        <h2>Reviews</h2>
+
+        <% if(currentUser){ %>
+
+            <div class="card">
+                <div class="card-body">
+
+                <a class="card-link btn btn-success" href="/albums/<%=album._id%>/reviews/new">Write a review</a>
+
+                </div>
+            </div>
+
+        <% } %>
+        
+
+        <% for(let review of album.reviews) { %>
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h4 class="card-title"><%= review.title %></h4>
+                    <h5 class="card-title starability-result" data-rating="<%=review.rating%>"><%= review.rating %></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">By <%= review.author.username%></h6>
+                    <p class="card-text"><%= review.body %></p>
+
+                </div>
+
+                <div class="card-body">
+                    <a class="card-link btn btn-secondary" href="/albums/<%=album._id%>/reviews/<%=review._id%>">View</a>
+
+                    <%  if( currentUser && review.author.equals(currentUser._id))  {%>
+
+                        <a class="card-link btn btn-info" href="/albums/<%=album._id%>/reviews/<%=review._id%>/edit">Edit</a>    
+                        <form class="d-inline" action="/albums/<%=album._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                        
+                    <% } %>
+                    
+                </div>
+
+            </div>
+
+        <% } %>
+
+    </div>
+</div>
+
+
+<footer>
+    <a href="/albums">All Albums</a>
+</footer>

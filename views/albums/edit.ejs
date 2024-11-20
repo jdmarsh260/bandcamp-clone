@@ -1,0 +1,65 @@
+<% layout('./secondary/layouts/boilerplate')%>
+
+<div class="row">
+
+    <h1 class="text-center">Edit Album</h1>
+
+    <div class="col-6 offset-3">
+
+        <form action="/albums/<%=album._id%>?_method=PUT" method="POST" novalidate  class="validated-form">
+
+            <div class="mb-3">
+
+                <label class="form-label" for="title">Album Title</label>
+                <input class="form-control" type="text" id="title" name="album[title]"
+                    value="<%=album.title %>" required>
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label" for="artist_name">Artist Name</label>
+                <input class="form-control" type="text" id="artist_name" name="album[artist_name]"
+                    value="<%=album.artist_name %>" required>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label" for="album_art">Album Art (URL)</label>
+                <input class="form-control" type="text" id="album_art" name="album[album_art]"
+                    value="<%=album.album_art %>" required>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label" for="price">Price</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="price-label">$</span>
+                    <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price"
+                        aria-describedby="price-label" name="album[price]" value="<%=album.price %>" required>
+                </div>
+
+            </div>
+
+            <div class="mb-3">
+                
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" type="text" id="description"
+                    name="album[description]" required><%= album.description%></textarea>
+
+            </div>
+
+            <div class="mb-3">
+                <button class="btn btn-info">Update Album</button>
+            </div>
+
+        </form>
+        
+        <div class="mb-3">
+        	<a href="/albums/<%= album._id%>">Back To Album</a>
+        </div>
+       
+
+    </div>
+</div>
