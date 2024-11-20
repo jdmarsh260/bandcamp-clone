@@ -59,6 +59,8 @@ app.use(methodOverride('_method'));
 // allows us to serve static assets from public directory (e.g. scripts, styles, etc.)
 app.use(express.static(path.join(__dirname, 'public')))
 
+
+// various settings for sessions, Mongo Atlas, and flash messages
 const secret = process.env.SECRET || 'thisshouldbebettersecret';
 
 const store = new MongoDBStore({
